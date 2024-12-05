@@ -1,0 +1,40 @@
+tprov:
+  profile: test
+
+spring:
+  application:
+    name: social-network-geo-storage
+  kafka:
+    bootstrap-servers: localhost:9098
+  liquibase:
+    enabled: false
+  jpa:
+    open-in-view: false
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: create-drop
+  datasource:
+#    url: jdbc:postgresql://localhost:5432/social-network-images
+#    username: postgres
+#    password: postgres
+    hikari:
+      schema: images_schema
+      connection-init-sql: CREATE schema  if not exists images_schema
+      connection-timeout: 10000
+
+geo:
+  cache:
+    time-to-alive: 10M
+
+app:
+  kafka:
+    enabled: false
+    kafkaNewAccountTopic: "account-delete-topic"
+    kafkaMessageGroupId: "kafka-message-group-id-geo"
+
+s3:
+  service-endpoint: https://storage.yandexcloud.net
+  signing-region: ru-central1-a
+  bucket_name: social-network-storage
+  folder_name: skb-team-project-50
+

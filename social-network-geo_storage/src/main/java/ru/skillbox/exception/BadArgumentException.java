@@ -1,0 +1,7 @@
+package ru.skillbox.exception;
+
+public class BadArgumentException extends RuntimeException {
+  public BadArgumentException(String message) {
+    super(message);
+  }
+}

@@ -1,0 +1,44 @@
+server:
+  port: 0
+
+spring:
+  application:
+    name: social-network-account
+
+  datasource:
+    url: jdbc:postgresql://89.111.174.153:5432/social-network-account
+    username: postgres
+    password: postgres
+    hikari:
+      schema: account_schema
+      connection-init-sql: CREATE SCHEMA IF NOT EXISTS account_schema
+      connection-timeout: 10000
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: none
+
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/db.changelog-master.yml
+
+  kafka:
+    bootstrap-servers: 89.111.174.153:9093
+
+app:
+  kafka:
+    kafka-consumer-auth-topic: "auth-topic"
+    kafka-consumer-action-topic: "action-topic"
+    kafka-producer-new-account-topic: "new-account-topic"
+    kafka-producer-deleted-account-topic: "account-delete-topic"
+    kafka-message-group-id: "kafka-message-group-id"
+  scheduled:
+    interval-in-cron: "*/30 * * * * ?"
+    offline-status-minutes: 5
+
+eureka:
+  client:
+    enabled: true
+    service-url:
+      defaultZone: http://89.111.174.153:8761/eureka/

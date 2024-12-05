@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebSocket Test</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.2/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+</head>
+<body>
+<script>
+    let socket = new SockJS('http://localhost:8787/api/v1/streaming/ws');
+    let stompClient = Stomp.over(socket);
+
+    stompClient.connect({}, function (frame) {
+        console.log('Connected: ' + frame);
+
+        stompClient.subscribe('/topic/public', function (messageOutput) {
+            console.log('Received message:', JSON.parse(messageOutput.body));
+        });
+
+        stompClient.send("/app/chat.sendMessage", {}, JSON.stringify({
+            'authorId': "550e8400-e29b-41d4-a716-446655440000",
+            'recipientId': "550e8400-e29b-41d4-a716-446655440001",
+            'messageText': 'Hello!',
+            'dialogId': 1,
+            'time': 454545
+        }));
+    });
+</script>
+</body>
+</html>

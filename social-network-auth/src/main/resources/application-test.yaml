@@ -1,0 +1,45 @@
+tprov:
+  profile: test
+  description: test profile active
+
+server:
+  port: 8585
+
+spring:
+  application:
+    name: social-network-auth
+  config:
+    import: optional:file:properties.env
+  liquibase:
+    enabled: false
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: create
+  datasource:
+    url: jdbc:postgresql://localhost:7432/social-network-auth
+    username: postgres
+    password: postgres
+    hikari:
+      schema: auth_schema
+      connection-init-sql: CREATE schema  if not exists auth_schema
+      connection-timeout: 10000
+  data:
+    redis:
+      host: localhost
+      port: 6379
+  kafka:
+    bootstrap-servers: localhost:9099
+
+app:
+  jwt:
+    secret: ${SECRET_KEY}
+    tokenExpiration: 15s
+    refreshTokenExpiration: 15s
+  kafka:
+    kafkaAuthTopic: "auth-topic"
+    kafkaMessageGroupId: "kafka-message-group-id"
+
+geo:
+  base_request_url: http://localhost:9999
+  saveCaptchaUrl: /api/v1/storage

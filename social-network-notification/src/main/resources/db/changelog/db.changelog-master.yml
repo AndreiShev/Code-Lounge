@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - include:
+      file: changeset/setting/001-create-notification-setting-table.sql
+      relativeToChangelogFile: true
+  - include:
+      file: changeset/notification/001-create-notification-table.sql
+      relativeToChangelogFile: true
+  - include:
+      file: changeset/notification/002-create-notification-to-user-table.sql
+      relativeToChangelogFile: true
+  - include:
+      file: changeset/notification/003-update-notification-to-user-table.sql
+      relativeToChangelogFile: true

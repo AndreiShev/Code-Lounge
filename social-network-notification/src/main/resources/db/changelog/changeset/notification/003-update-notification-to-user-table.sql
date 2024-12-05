@@ -1,0 +1,1 @@
+ALTER TABLE ws_notification.notifications_to_users ADD COLUMN sent_time TIMESTAMP;

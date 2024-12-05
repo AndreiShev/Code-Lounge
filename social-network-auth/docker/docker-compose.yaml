@@ -1,0 +1,48 @@
+version: '3'
+
+services:
+  postgres:
+    container_name: social_network_postgres
+    image: postgres:12.3
+    ports:
+      - "7432:3432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=social-network-auth
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./initSchema.sql:/docker-entrypoint-initdb.d/initSchema.sql
+
+  redis:
+    image: mirror.gcr.io/redis
+    ports:
+      - "6379:6379"
+
+  zookeeper:
+    container_name: zookeeper
+    image: confluentinc/cp-zookeeper:6.2.0
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+    ports:
+      - "2181:2181"
+
+  kafka1:
+    image: confluentinc/cp-kafka:6.2.0
+    container_name: kafka1
+    depends_on:
+      - zookeeper
+    ports:
+      - "9099:9099"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
+      KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO, kafka.producer.async.DefaultEventHandler=INFO, state.change.logger=INFO"
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9099
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTORY: 1
+      KAFKA_AUTO_CREATE_TOPIC_ENABLE: 'true'
+
+volumes:
+  postgres-data:
+  pgadmin-data:

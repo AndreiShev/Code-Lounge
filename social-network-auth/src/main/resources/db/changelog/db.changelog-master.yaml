@@ -1,0 +1,5 @@
+databaseChangeLog: #параметр в котором находятся миграции
+  - include:
+      file: db/changelog/changeset/create-account-table.sql
+  - include:
+      file: db/changelog/changeset/create-role-table.sql

@@ -1,0 +1,57 @@
+server:
+  port: 0
+
+spring:
+  application:
+    name: social-network-geo-storage
+  datasource:
+    url: jdbc:postgresql://89.111.174.153:5432/social-network-images
+    username: postgres
+    password: postgres
+    hikari:
+      schema: images_schema
+      connection-init-sql: CREATE SCHEMA IF NOT EXISTS images_schema
+      connection-timeout: 10000
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: none
+
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/changelog-master.xml
+
+  data:
+    redis:
+      host: 89.111.174.153
+      port: 6379
+  kafka:
+    bootstrap-servers: 89.111.174.153:9093
+
+geo:
+  base_request_url: https://api.hh.ru/areas
+  all_countries_request_url: /countries
+  all_cities_request_url: /
+  cache:
+    time-to-alive: 40M
+
+app:
+  kafka:
+    kafkaDeleteAccountTopic: "account-delete-topic"
+    kafkaMessageGroupId: "kafka-message-group-id-geo"
+  gateway-point: http://89.111.174.153:9090/api/v1
+  fake-psw: hn7lNNEVC8XSk
+
+s3:
+  service-endpoint: https://storage.yandexcloud.net
+  signing-region: ru-central1-a
+  bucket_name: social-network-storage
+  folder_name: skb-team-project-50
+  captcha_clear_interval: "0 0 3 * * ?"
+
+eureka:
+  client:
+    enabled: true
+    service-url:
+      defaultZone: http://89.111.174.153:8761/eureka/

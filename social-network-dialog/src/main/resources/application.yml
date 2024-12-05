@@ -1,0 +1,61 @@
+server:
+  port: 0
+
+spring:
+  cloud:
+    openfeign:
+      enabled: true
+
+  rabbitmq:
+    host: 89.111.174.153  # Используйте имя контейнера RabbitMQ, если приложение и RabbitMQ в одной сети Docker
+    port: 5672      # Порт для AMQP
+    username: guest
+    password: guest
+
+  application:
+    name: social-network-dialog
+
+  kafka:
+    bootstrap-servers: 89.111.174.153:9093
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      acks: 1
+      retries: 3
+
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/db.changelog-master.yml
+
+  jpa:
+    open-in-view: false
+  datasource:
+    url: jdbc:postgresql://89.111.174.153:5432/social-network-dialog
+    username: postgres
+    password: postgres
+    hikari:
+      schema: dialog_schema
+      connection-init-sql: create schema if not exists dialog_schema
+      connection-timeout: 10000
+app:
+  jwt:
+    uriValidate: "http://89.111.174.153:9090/api/v1/auth"
+
+  kafka:
+    kafkaNotificationTopic: "notification-topic"
+
+  rabbitMQ:
+    host: "rabbitmq"
+    port: 61613
+    login: "guest"
+    password: "guest"
+
+eureka:
+  client:
+    enabled: true
+    service-url:
+      defaultZone: http://89.111.174.153:8761/eureka/
+
+
+#89.111.174.153
+#test commit

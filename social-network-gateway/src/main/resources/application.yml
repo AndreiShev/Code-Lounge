@@ -1,0 +1,34 @@
+server:
+  port: 9090
+
+spring:
+  application:
+    name: social-network-gateway
+  cloud:
+    gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+#            allowedOrigins: "http://localhost:8080"  # Разрешаем запросы с фронтенда
+            allowedOrigins: "http://89.111.174.153:8080"  # Разрешаем запросы с фронтенда
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowedHeaders:
+              - Authorization
+              - Content-Type
+            allowCredentials: true
+      discovery:
+        locator:
+          enable: true
+          lower-case-service-id: true
+
+eureka:
+  client:
+    enabled: true
+    serviceUrl:
+#      defaultZone: http://localhost:8761/eureka
+      defaultZone: http://89.111.174.153:8761/eureka/
