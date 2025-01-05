@@ -9,7 +9,7 @@ spring:
   jpa:
     open-in-view: false
   datasource:
-    url: jdbc:postgresql://89.111.174.153:5432/social-network-auth
+    url: jdbc:postgresql://176.123.168.208:5432/social-network-auth
     username: postgres
     password: postgres
     hikari:
@@ -18,10 +18,10 @@ spring:
       connection-timeout: 10000
   data:
     redis:
-      host: 89.111.174.153
+      host: 176.123.168.208
       port: 6379
   kafka:
-    bootstrap-servers: 89.111.174.153:9093
+    bootstrap-servers: 176.123.168.208:9093
 app:
   jwt:
     secret: "SomeSecretKey"
