@@ -5,7 +5,7 @@ import store from '@/store';
 axios.defaults.headers['content-type'] = 'application/json';
 axios.defaults.withCredentials = true;
 
-axios.defaults.baseURL = "http://89.111.174.153:9090/api/v1/"; // << для сервера
+axios.defaults.baseURL = "http://176.123.168.208:9090/api/v1/"; // << для сервера
 //axios.defaults.baseURL = "http://localhost:9090/api/v1/"; // << локально
 
 // const setAuthToken = (token) => {
